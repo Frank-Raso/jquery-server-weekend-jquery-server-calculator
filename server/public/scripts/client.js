@@ -108,7 +108,8 @@ function divide(){
 function clear(){
     $('input').val('');
     buttonColor();
-    $('#answerout').empty();
+    $('#answerOut').empty();
+
 }
 function container(){
     
