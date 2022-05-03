@@ -2,7 +2,7 @@ $(document).ready(readyNow);
 
 function readyNow(){
     getHistory();
-$('#equalButt').on('click',newEquasion,)
+$('#equalButt').on('click',newequation,)
 $('#addButt').on('click',addition,)
 $('#subtractButt').on('click',subtract,)
 $('#multiplyButt').on('click',multiply,)
@@ -66,10 +66,10 @@ function buttonColor(){
 }
 
 
-function newEquasion(){
-    console.log( 'in newEquasion' );
+function newequation(){
+    console.log( 'in newequation' );
     // get user input & place in an object
-    let newEquasion = {
+    let newequation = {
         leading: Number($('#inputBox1').val()),
         operator: symbol[symbol.length -1],
         trailing: Number($('#inputBox2').val()),
@@ -78,19 +78,19 @@ function newEquasion(){
 
     }
 
-    console.log( 'adding:', newEquasion );
-    // make a POST request to Create a new equasion
+    console.log( 'adding:', newequation );
+    // make a POST request to Create a new equation
     $.ajax({
         method: 'POST', // POST is for Create
         url: '/calc',
-        data: newEquasion
+        data: newequation
     }).then( function( response ){
         console.log( 'back from POST:', response );
         //run getHistory to update the DOM
         getHistory()
     }).catch( function( err ){
         console.log( err );
-        alert( 'error adding newEquasion' );
+        alert( 'error adding newequation' );
     })
 } // end addEq
 
@@ -99,7 +99,7 @@ function getHistory(){
     // get equ from server
     // use AJAX 
     $.ajax({ // hey JQ, do some AJAX
-        method: 'GET', // "read verb", eg: 'GET me all the equasions
+        method: 'GET', // "read verb", eg: 'GET me all the equations
         url: '/calc'
     }).then( function( response ){
         // loop thru response

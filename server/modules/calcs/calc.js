@@ -2,7 +2,7 @@
 const express = require('express');
  const router = express.Router();
 
- let equasion = [
+ let equation = [
     {
         leading: '1',
         operator: '+',
@@ -13,39 +13,39 @@ const express = require('express');
 ];
  router.get('/',(req,res)=>{
      console.log('/calc GET');
-     res.send( equasion );
+     res.send( equation );
  });
     router.post( '/', ( req, res )=>{
         console.log( '/calc POST:', req.body );
-        equasion.push( req.body );
+        equation.push( req.body );
             res.sendStatus(200);
 
           if (req.body.operator === '-'){
             req.body.result = Number(req.body.leading) - Number(req.body.trailing)
 
-            equasion.result.push(req.body.result)
-                //res.send(equasion);
+            equation.result.push(req.body.result)
+                //res.send(equation);
                     res.sendStatus( 200 );
 
           }if (req.body.operator === '+'){
             req.body.result = Number(req.body.leading) + Number(req.body.trailing)
 
-            equasion.result.push(req.body.result)
-                //res.send(equasion);
+            equation.result.push(req.body.result)
+                //res.send(equation);
                     res.sendStatus( 200 );
 
           }if (req.body.operator === '*'){
             req.body.result = Number(req.body.leading) * Number(req.body.trailing)
 
-            equasion.result.push(req.body.result)
-                //res.send(equasion);
+            equation.result.push(req.body.result)
+                //res.send(equation);
                     res.sendStatus( 200 );
 
           }if (req.body.operator === '/'){
             req.body.result = Number(req.body.leading) / Number(req.body.trailing)
 
-            equasion.result.push(req.body.result)
-                //res.send(equasion);
+            equation.result.push(req.body.result)
+                //res.send(equation);
                     res.sendStatus( 200 );
           }
     });
