@@ -1,18 +1,21 @@
-// requires
+// require
 const express = require( 'express');
 const app = express();
 const bodyParser = require('body-parser');
-const calculate = require('./modules/calcs/calc');
+const equasion = require('./modules/calcs/calc');
 
 
-///// app uses
+
+
+
+// app use
 app.use( express.static ('./server/public'));
 app.use( bodyParser.urlencoded( { extended: true}));
-app.use ('/calc', calculate);
-
-/////globals
+app.use ('/calc', equasion);
+// global
 const port = 5001;
+
 
 app.listen( port,() => {
     console.log('server is up on', port);
-})
+});

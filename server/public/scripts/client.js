@@ -1,7 +1,8 @@
 $(document).ready(readyNow);
 
 function readyNow(){
-$('#equalButt').on('click',equal,)
+    getHistory();
+$('#equalButt').on('click',newEquasion,)
 $('#addButt').on('click',addition,)
 $('#subtractButt').on('click',subtract,)
 $('#multiplyButt').on('click',multiply,)
@@ -10,35 +11,171 @@ $('#clearButt').on('click',clear,)
 
 
 }
-let answer;
+//let answer=[];
 let symbol=[];
 
-function equal(){
+function addition(){
+    symbol.push('+');
+    buttonColor();
+    $('#addButt').css('background-color','green');
+    container();
+}
+function subtract(){
+    symbol.push('-');
+    buttonColor();
+    $('#subtractButt').css('background-color','green');
+    container();
+}
+function multiply(){
+    symbol.push('*');
+    buttonColor();
+    $('#multiplyButt').css('background-color','green');
+     container()
+}
+function divide(){
+    symbol.push('/');
+    buttonColor();
+    $('#divideButt').css('background-color','green');
+    container();
+}
+function clear(){
+    $('input').val('');
+    buttonColor();
+    $('#newAnswer').empty();
 
-    // create object to send to server
-    let data = {
+
+}
+function container(){
+    
+    if (symbol[symbol.length -1] === '+'){
+        console.log('Addition is Working!');
+    }
+    if (symbol[symbol.length -1] === '-'){
+        console.log('Subtraction is Working!');
+    }
+    if (symbol[symbol.length -1] === '*'){
+        console.log('Multiplication is Working!');
+    }
+    if (symbol[symbol.length -1] === '/'){
+        console.log('Division is Working!');
+    }
+}
+function buttonColor(){
+    $('#addButt').css('background-color','white');
+    $('#subtractButt').css('background-color','white');
+    $('#multiplyButt').css('background-color','white');
+    $('#divideButt').css('background-color','white');
+}
+
+
+
+
+function newEquasion(){
+    console.log( 'in newEquasion' );
+    // get user input & place in an object
+    let newEquasion = {
         leading: Number($('#inputBox1').val()),
         operator: symbol[symbol.length -1],
-        trailing: Number($('#inputBox2').val())
+        trailing: Number($('#inputBox2').val()),
+        operator2:'=',
+        result:''
+
     }
 
+    console.log( 'adding:', newEquasion );
+    // make a POST request to Create a new pet
     $.ajax({
-        method: 'POST',
+        method: 'POST', // POST is for Create
         url: '/calc',
-        data: data,
-    }).then(function(response){
-        console.log('back from POST',response.result)
-        // update the UI with the result from the server
-        const el = $('#out');
-        const el2 = $('#answerOut');
+        data: newEquasion
+    }).then( function( response ){
+        console.log( 'back from POST:', response );
+        //run getPets to update the DOM
+        getHistory()
+    }).catch( function( err ){
+        console.log( err );
+        alert( 'error adding newEquasion' );
+    })
+} // end addEq
+
+
+function getHistory(){
+    // get pets from server
+    // use AJAX 
+    $.ajax({ // hey JQ, do some AJAX
+        method: 'GET', // "read verb", eg: 'GET me all the equasions
+        url: '/calc'
+    }).then( function( response ){
+        // loop thru response
+        console.log('HERE');
+        console.log( response );
+        // display  on DOM
+        // target and empty output element
+        const el = $( '#out' );
+        const el2 = $('#newAnswer');
+        el.empty();
         el2.empty();
-        el2.append(response.result);
-        el.append(`<ul>${data.leading } ${data.operator} ${data.trailing} = ${response.result} </ul>`);
-        $('input').val('')
-    }).catch(function(err){
-        console.log(err);
-        alert('error');
-    });
+                  
+        for( let i=1; i< response.length; i++ ){   
+            // append each pet to output el
+        const el2 = $('#newAnswer');
+        el2.empty();
+        el2.append(response[i].result);
+
+            el.append( `<ul>${ response[i].leading }  ${ response[i].operator } 
+                            ${ response[i].trailing }  ${ response[i].operator2 }  
+                                        ${ response[i].result } </ul>`);
+       } // end for
+
+
+
+    }).catch( function( err ){
+        console.log( err );
+        alert( 'error getting getHistory' );
+    }) // end AJAX
+} // end getHistory
+
+    
+
+
+
+
+
+
+
+
+
+
+
+// function equal(){
+
+//     // create object to send to server
+//     let data = {
+//         leading: Number($('#inputBox1').val()),
+//         operator: symbol[symbol.length -1],
+//         trailing: Number($('#inputBox2').val())
+//     }
+
+//     $.ajax({
+//         method: 'POST',
+//         url: '/calc',
+//         data: data,
+//     }).then(function(response){
+//         console.log('back from POST',response.result)
+//         // update the UI with the result from the server
+//         const el = $('#out');
+//         const el2 = $('#answerOut');
+//         el2.empty();
+//         el2.append(response.result);
+//         el.append(`<ul>${data.leading } ${data.operator} ${data.trailing} = ${response.result} </ul>`);
+//         $('input').val('')
+//     }).catch(function(err){
+//         console.log(err);
+//         alert('error');
+//     });
+// }
+
+//==============
     //end of equal
     //below is comment out for client based only.
     
@@ -79,56 +216,3 @@ function equal(){
     //                 }
     //                 $('input').val('')
     //             }
-}
-function addition(){
-    symbol.push('+');
-    buttonColor();
-    $('#addButt').css('background-color','green');
-    container();
-}
-function subtract(){
-    symbol.push('-');
-    buttonColor();
-    $('#subtractButt').css('background-color','green');
-    container();
-}
-function multiply(){
-    symbol.push('*');
-    buttonColor();
-    $('#multiplyButt').css('background-color','green');
-
-     container()
-}
-function divide(){
-    symbol.push('/');
-    buttonColor();
-    $('#divideButt').css('background-color','green');
-    container();
-}
-function clear(){
-    $('input').val('');
-    buttonColor();
-    $('#answerOut').empty();
-
-}
-function container(){
-    
-    if (symbol[symbol.length -1] === '+'){
-        console.log('Addition is Working!');
-    }
-    if (symbol[symbol.length -1] === '-'){
-        console.log('Subtraction is Working!');
-    }
-    if (symbol[symbol.length -1] === '*'){
-        console.log('Multiplication is Working!');
-    }
-    if (symbol[symbol.length -1] === '/'){
-        console.log('Division is Working!');
-    }
-}
-function buttonColor(){
-    $('#addButt').css('background-color','white');
-    $('#subtractButt').css('background-color','white');
-    $('#multiplyButt').css('background-color','white');
-    $('#divideButt').css('background-color','white');
-}
