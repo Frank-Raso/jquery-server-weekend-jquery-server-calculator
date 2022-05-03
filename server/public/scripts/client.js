@@ -83,14 +83,14 @@ function newEquasion(){
     }
 
     console.log( 'adding:', newEquasion );
-    // make a POST request to Create a new pet
+    // make a POST request to Create a new equasion
     $.ajax({
         method: 'POST', // POST is for Create
         url: '/calc',
         data: newEquasion
     }).then( function( response ){
         console.log( 'back from POST:', response );
-        //run getPets to update the DOM
+        //run getHistory to update the DOM
         getHistory()
     }).catch( function( err ){
         console.log( err );
@@ -100,7 +100,7 @@ function newEquasion(){
 
 
 function getHistory(){
-    // get pets from server
+    // get equ from server
     // use AJAX 
     $.ajax({ // hey JQ, do some AJAX
         method: 'GET', // "read verb", eg: 'GET me all the equasions
@@ -117,7 +117,7 @@ function getHistory(){
         el2.empty();
                   
         for( let i=1; i< response.length; i++ ){   
-            // append each pet to output el
+
         const el2 = $('#newAnswer');
         el2.empty();
         el2.append(response[i].result);
