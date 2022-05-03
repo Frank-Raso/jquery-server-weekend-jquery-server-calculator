@@ -1,7 +1,6 @@
 // requires
 const express = require('express');
  const router = express.Router();
-
  let equation = [
     {
         leading: '1',
