@@ -10,13 +10,11 @@ const express = require('express');
         operator2:'=',
         result:'2',
     },
-    
 ];
  router.get('/',(req,res)=>{
      console.log('/calc GET');
      res.send( equasion );
  });
-
     router.post( '/', ( req, res )=>{
         console.log( '/calc POST:', req.body );
         equasion.push( req.body );

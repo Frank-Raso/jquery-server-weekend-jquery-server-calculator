@@ -9,7 +9,6 @@ $('#multiplyButt').on('click',multiply,)
 $('#divideButt').on('click',divide,)
 $('#clearButt').on('click',clear,)
 
-
 }
 //let answer=[];
 let symbol=[];
@@ -43,7 +42,6 @@ function clear(){
     buttonColor();
     $('#newAnswer').empty();
 
-
 }
 function container(){
     
@@ -66,8 +64,6 @@ function buttonColor(){
     $('#multiplyButt').css('background-color','white');
     $('#divideButt').css('background-color','white');
 }
-
-
 
 
 function newEquasion(){
@@ -126,8 +122,6 @@ function getHistory(){
                             ${ response[i].trailing }  ${ response[i].operator2 }  
                                         ${ response[i].result } </ul>`);
        } // end for
-
-
 
     }).catch( function( err ){
         console.log( err );
