@@ -59,10 +59,10 @@ function container(){
     }
 }
 function buttonColor(){
-    $('#addButt').css('background-color','white');
-    $('#subtractButt').css('background-color','white');
-    $('#multiplyButt').css('background-color','white');
-    $('#divideButt').css('background-color','white');
+    $('#addButt').css('background-color','dimgray');
+    $('#subtractButt').css('background-color','dimgray');
+    $('#multiplyButt').css('background-color','dimgray');
+    $('#divideButt').css('background-color','dimgray');
 }
 
 
